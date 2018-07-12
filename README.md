@@ -50,14 +50,14 @@ $ git clone https://github.com/aabilio/url-shortener.git
 $ cd url-shortener
 ```
 
-2. Install the dependences
+2. Install the dependencies
 ```bash
  $ npm install
 ```
 
-3. Check the test and lint
+3. Check the test and lint (we use the airbnb lint configuration)
 ```bash
- $ nmp test
+ $ npm test
  $ npm run lint
 ```
 
