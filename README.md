@@ -1,6 +1,6 @@
 # Simple Url shortener: Universal app with Node.js and React
 
-This is a simple universal app developed with Node (Express and Next.js) and React. There is a backend which is responsible for the first render of the frontend application and the simple url shortener HTTP API. This backend is also responsible for the url shortener gateway for the shortened urls.
+This is a simple universal app developed with Node (Express and Next.js) and React. There is a backend which is responsible for the first render of the frontend application and the simple url shortener HTTP API. This backend is also responsible for the url shortener gateway for the shorten urls.
 
 | Desktop Screenshot | Mobile Screenshot  |
 |---|---|
@@ -12,7 +12,7 @@ There is a temporary online demo on https://url-shortener-aabilio.now.sh
 
 ##### - API
 
-This app has a little HTTP API that works on the top of [Express server](https://github.com/aabilio/url-shortener/blob/master/server/server.js "Express server") with the next endpoints:
+This app has a little HTTP API that works on the top of an [Express server](https://github.com/aabilio/url-shortener/blob/master/server/server.js "Express server") with the next endpoints:
 
 - **GET** */api/v1/destination/valid?url=:url* - Check if an url is valid
 - **POST** */api/v1/url* - Short an url 
@@ -25,18 +25,18 @@ I tried to use a [kind of MVC](https://github.com/aabilio/url-shortener/tree/mas
 
 ##### - Gateway
 
-This part of the app [just redirects the shorted urls to their destination](https://github.com/aabilio/url-shortener/blob/master/server/controllers/index.js#L29 "just redirects the shorted urls to their destination") (original url) but it also [created some stats](https://github.com/aabilio/url-shortener/blob/master/server/utils/index.js#L23 " created some stats") at the same time (ip, referrer, ...). The path is just <domain>/:path (path is de shorted id)
+This part of the app [just redirects the shorted urls to their destination](https://github.com/aabilio/url-shortener/blob/master/server/controllers/index.js#L29 "just redirects the shorted urls to their destination") (original url) but it also [created some stats](https://github.com/aabilio/url-shortener/blob/master/server/utils/index.js#L23 " created some stats") at the same time (ip, referrer, ...). The path is just <domain>/:path (path is the shorten url id)
 
 ##### - Server Side Rendering Part
 
-This app also serves the first load off the React frontend app from the server. This is possible thanks to Next.js framework.
+This app also renders the first load off the React frontend app in the server. This is possible thanks to Next.js framework.
 
 ### Frontend
 
 ##### - React App
 
 This app contains one [main Next.js page](https://github.com/aabilio/url-shortener/blob/master/pages/index.js "main Next.js page") (React Component) that handle all the [state and actions](https://github.com/aabilio/url-shortener/blob/master/pages/index.js#L17 "state and actions") of this simple application (we don't need Redux for this example) and a few of stateless components like Headers and Footers. Every component has its own style in jsx format.
-The app was developed using ES6+ features and trasnpiling the code with Babel.
+The app was developed using ES6+ features and transpiling the code with Babel.
 
 ##### - Url Shortener api library
 
@@ -61,7 +61,7 @@ $ cd url-shortener
  $ npm run lint
 ```
 
-4. You need mysql database running (but it is easy to use another option). You need to provide the application the connection paramaters [editing app.js](https://github.com/aabilio/url-shortener/blob/master/app.js#L17 "editing app.js") (or setting properly the enviroment vars on your system):
+4. You need a mysql database running (but it is easy to use another option). You need to provide the application the connection paramaters [editing app.js](https://github.com/aabilio/url-shortener/blob/master/app.js#L17 "editing app.js") (or setting properly the enviroment vars on your system):
 ```javascript
 const DATABASE_TYPE = process.env.DATABASE_TYPE || 'mysql'
 const DATABASE_HOST = process.env.DATABASE_HOST || 'localhost'
@@ -76,9 +76,7 @@ By default, the app look for server running on **localhost**, with user and pass
 $ npm run dev
 ```
 
-
 Now the app is running on http://localhost:8000 and the api is running on http://localhost:8000/api/v1/ (ex.: http://localhost:8000/api/v1/urls)
-
 
 ### Deploying the app
 
@@ -98,12 +96,12 @@ Some other functional requirements and/or additional features could be implement
 
 * **Stateless API Authentication** with Json Web Token as a Bearer Token using the Authentication Header from HTTP protocol.
 * **API Pagination** for those endpoints that need it. Using url params like "limit" and "offset".
-* **Multi domain support**. Now the generated shorted urls is not coupled with a certain domain so include new domains shouldn't be dificult.
-* **Custom Path** (maybe for authenticated premium users). Refactorize short endpoint to accept new paramenters and not just the url.
-* **Shorting batch operations**. Refactorizin the json body on the short endpoint we can include more urls than one per call.
+* **Multi domain support**. Now the generated shorten urls are not coupled with a certain domain so include new domains shouldn't be difficult.
+* **Custom Path** (maybe for authenticated premium users). Refactorize short endpoint to accept new parameters and not just the url.
+* **Shorting batch operations**. Refactoring the short endpoint's json body request payload we can include more urls than just one per call.
 * **Control Panel** for the administration of the backend. Maybe another fronted application with React/Redux.
-* We can deep on **browser test** to text the UX/UI
-* As infrastructure, for example for the demo app, we can use **CI/CD, and Docker** or maybe use Amazon Elastic Beanstalk to deploy the app
+* We can gl deep on **browser test** to test the UX/UI.
+* About the infrastructure, for example for the demo app, we can use **CI/CD, and Docker** or maybe use Amazon Elastic Beanstalk to deploy the app.
 
 ### Authors
 
