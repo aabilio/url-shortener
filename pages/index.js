@@ -103,7 +103,7 @@ class ShortenerPage extends React.Component {
           handleShortClick={this.handleShortClick}
         />
         <section className="section__last-urls">
-          <h1>Last shorted urls...</h1>
+          <h1>Last shorten urls...</h1>
           {(lastsList.length === 0)
             ? <h1 className="section__last-urls__no-urls">There is no urls yet... <span>:(</span></h1>
             : <UrlsList urls={lastsList} lastAddedId={lastAddedId} />

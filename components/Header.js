@@ -8,7 +8,7 @@ const Header = ({
   handleShortClick,
 }) => (
   <header>
-    <p>Url shorter</p>
+    <p>Url Shortener</p>
     <section className="shortener-app">
       <div className="input-container">
         <input
