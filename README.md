@@ -100,7 +100,7 @@ Some other functional requirements and/or additional features could be implement
 * **Custom Path** (maybe for authenticated premium users). Refactorize short endpoint to accept new parameters and not just the url.
 * **Shorting batch operations**. Refactoring the short endpoint's json body request payload we can include more urls than just one per call.
 * **Control Panel** for the administration of the backend. Maybe another fronted application with React/Redux.
-* We can gl deep on **browser test** to test the UX/UI.
+* We can go deep on **browser test** to test the UX/UI.
 * About the infrastructure, for example for the demo app, we can use **CI/CD, and Docker** or maybe use Amazon Elastic Beanstalk to deploy the app.
 
 ### Authors

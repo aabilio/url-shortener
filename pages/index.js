@@ -11,24 +11,20 @@ import makeUrlShortenerApiClient from '../client-libs/url-shortener'
 const urlShortenerApiClient = makeUrlShortenerApiClient({ fetch })
 const apiClient = urlShortenerApiClient('localhost', 8000, 'http')
 
-const DEFAULT_URL = 'http://...'
+export const DEFAULT_URL = 'http://...'
 
 class ShortenerPage extends React.Component {
-  state = {
-    url: DEFAULT_URL,
-    loading: false,
-    lastShortsList: [],
-    error: false,
-    lastAddedId: null,
-  }
-
-  // In this simple example we are going to use just the state from the
-  // container to store the app state (nor Redux, nor anything else).
-  // So we need to pass lastShorts from server side rendering
-  // props to the current component state at mounting time
-  componentDidMount = () => {
-    const { lastShorts } = this.props
-    this.setState({ lastShortsList: lastShorts })
+  constructor(props) {
+    super(props)
+    // In this simple example we are going to use just the state from
+    // the container to store the app state (nor Redux, nor anything else).
+    this.state = {
+      url: DEFAULT_URL,
+      loading: false,
+      lastShorts: props.lastShorts,
+      error: false,
+      lastAddedId: null,
+    }
   }
 
   // Server Side Rendering first props
@@ -54,7 +50,7 @@ class ShortenerPage extends React.Component {
   }
 
   handleShortClick = async () => {
-    const { url, loading, lastShortsList } = this.state
+    const { url, loading, lastShorts } = this.state
     if (loading) {
       return false
     }
@@ -69,9 +65,9 @@ class ShortenerPage extends React.Component {
     const shortUrl = await apiClient.shortUrl(url)
     shortUrl.clicks = 0
     const lastAddedId = shortUrl.id
-    const newLastShortsList = [shortUrl, ...lastShortsList]
+    const newLastShorts = [shortUrl, ...lastShorts]
     this.setState({
-      lastShortsList: newLastShortsList, url: DEFAULT_URL, loading: false,
+      lastShorts: newLastShorts, url: DEFAULT_URL, loading: false,
     })
     // UX: Show last url added with colors
     window.scrollTo(0, 0)
@@ -82,14 +78,9 @@ class ShortenerPage extends React.Component {
   }
 
   render = () => {
-    // UX: Avoid first rendering data blink caused by
-    // pass props to store in this basic example
     const {
-      lastAddedId, lastShortsList, url, error, loading,
+      lastAddedId, lastShorts, url, error, loading,
     } = this.state
-
-    const { lastShorts } = this.props
-    const lastsList = (lastShortsList.length === 0) ? lastShorts : lastShortsList
 
     return (
       <main>
@@ -104,9 +95,9 @@ class ShortenerPage extends React.Component {
         />
         <section className="section__last-urls">
           <h1>Last shorten urls...</h1>
-          {(lastsList.length === 0)
+          {(lastShorts.length === 0)
             ? <h1 className="section__last-urls__no-urls">There is no urls yet... <span>:(</span></h1>
-            : <UrlsList urls={lastsList} lastAddedId={lastAddedId} />
+            : <UrlsList urls={lastShorts} lastAddedId={lastAddedId} />
           }
         </section>
         <Footer />
